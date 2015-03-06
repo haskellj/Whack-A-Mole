@@ -8,6 +8,7 @@
 	var timeLimit;
 	var moleNum;
 	var health;
+	var squeak = new Audio('../sound/rat_upset.wav');
 
 	//randomly select a hole & fade-in a mole img
 	//repeat this process if unclicked
@@ -16,7 +17,7 @@
 		level = 1;
 		moleNum = 0;
 		health = 5;
-		timeLimit = 4000;
+		timeLimit = 3000;
 		var oldMissedMoles = 0;
 		var currentMissedMoles = 0;
 		$('#score').text(score);
@@ -35,11 +36,12 @@
 
 			//add a click event to generated mole
 			$(mole[a]).one('click', function(){
+				squeak.play();
 				$(this).fadeOut('fast');
 				score++;
 				$('#score').text(score);
 
-				//increase level & speed every 4points
+				//increase level & speed every 4 points
 				if(score % 4 == 0){
 					timeLimit *= 0.75;
 					level++

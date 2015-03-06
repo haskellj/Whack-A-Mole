@@ -8,6 +8,8 @@
 	var timeLimit;
 	var moleNum;
 	var health;
+	var screech = new Audio('../sound/hiss_beast_screech.mp3');
+	var explode = new Audio('../sound/explosion.wav');
 
 	//randomly select a hole & fade-in a mole img
 	//repeat this process if unclicked
@@ -33,13 +35,14 @@
 			moleNum++;
 
 			//add a click event to generated mole
-			$(mole[a]).one('click', function(){
+			$(mole[a]).off().one('click', function(){
 				$(this).effect('explode', timeLimit/4);
+				explode.play();
 				score++;
 				console.log('score: ' + score)
 				$('#score').text(score);
 
-				//increase level & speed every 4points
+				//increase level & speed every 4 points
 				if(score % 4 == 0){
 					timeLimit *= 0.75;
 					level++
@@ -78,7 +81,7 @@
 	//This plug-in confuses the click event when the speed increases,
 	//causing occassional double-clicks to register.
 	function animate(thisMole){
-		$(thisMole).show('slide', {direction: 'down'}, timeLimit/2);
+		$(thisMole).show('slide', {direction: 'down'}, screech.play());
 		setTimeout(function(){
 			$(thisMole).hide('slide', {direction: 'down'}, timeLimit/4);
 		}, timeLimit/1.5);
